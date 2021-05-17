@@ -40,7 +40,7 @@ from keras.layers import Activation, Dense, Dropout, Input
 ########################################################################
 
 # Load the dataset
-df_c = pd.read_csv('cleveland_76_header.csv', sep=',')
+df_c = pd.read_csv('data/cleveland_76_header.csv', sep=',')
 
 df_c.head
 df_c.columns
@@ -155,6 +155,12 @@ df_c.groupby('sex').age.plot(kind='kde')
 #######################################################################
 #------------------------ SPLITTING THE DATASET -----------------------
 #######################################################################
+# Renaming cols
+df_c.loc[(df_c.cp == 'Typical angina'), 'cp'] = 1
+df_c.loc[(df_c.cp == 'Atypical angina'), 'cp'] = 2
+df_c.loc[(df_c.cp == 'Non-anginal pain'), 'cp'] = 3
+df_c.loc[(df_c.cp == 'Asymptomatic'), 'cp'] = 4
+
 
 # Split the dataset
 X = df_c.loc[:, df_c.columns != 'num']
@@ -163,6 +169,7 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y,
                                                                     train_size=0.75,
                                                                     test_size=0.25, 
                                                                     random_state=101)
+
 
 
 
