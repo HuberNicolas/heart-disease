@@ -40,32 +40,32 @@ from keras.layers import Activation, Dense, Dropout, Input
 ########################################################################
 
 # Load the dataset
-df_h = pd.read_csv('data/long-beach-va_76_header.csv', sep=',')
+df_v = pd.read_csv('data/long-beach-va_76_header.csv', sep=',')
 
-df_h.head
-df_h.columns
-df_h.dtypes
+df_v.head
+df_v.columns
+df_v.dtypes
 
 # Remove the missing values
 cols = []
-for i in df_h.columns:
-    if df_h.loc[0, i] == -9:
+for i in df_v.columns:
+    if df_v.loc[0, i] == -9:
         cols.append(i)
-df_h[cols] = 'NA'
-df_h = df_h.drop(cols, axis = 1)
-df_h = df_h.drop('name', axis = 1)
+df_v[cols] = 'NA'
+df_v = df_v.drop(cols, axis = 1)
+df_v = df_v.drop('name', axis = 1)
 
 # Maximum heart rate VS age (+ target)
 plt.figure(figsize = (14,8))
-plt.scatter(x=df_h.age[df_h.num==1], y=df_h.thalach[(df_h.num==1)], 
+plt.scatter(x=df_v.age[df_v.num==1], y=df_v.thalach[(df_v.num==1)], 
             c="indianred", alpha = 0.5, edgecolors = "red")
-plt.scatter(x=df_h.age[df_h.num==2], y=df_h.thalach[(df_h.num==2)], 
+plt.scatter(x=df_v.age[df_v.num==2], y=df_v.thalach[(df_v.num==2)], 
             c="indianred", alpha = 0.5, edgecolors = "red")
-plt.scatter(x=df_h.age[df_h.num==3], y=df_h.thalach[(df_h.num==3)], 
+plt.scatter(x=df_v.age[df_v.num==3], y=df_v.thalach[(df_v.num==3)], 
             c="indianred", alpha = 0.5, edgecolors = "red")
-plt.scatter(x=df_h.age[df_h.num==4], y=df_h.thalach[(df_h.num==4)], 
+plt.scatter(x=df_v.age[df_v.num==4], y=df_v.thalach[(df_v.num==4)], 
             c="indianred", alpha = 0.5, edgecolors = "red")
-plt.scatter(x=df_h.age[df_h.num==0], y=df_h.thalach[(df_h.num==0)], 
+plt.scatter(x=df_v.age[df_v.num==0], y=df_v.thalach[(df_v.num==0)], 
             c="lightskyblue", alpha = 0.5, edgecolors = "blue")
 #plt.legend(["Disease", "Not disease"], labelcolor = ["indianred", "lightskyblue"])
 red_patch = mpatches.Patch(color= "indianred", label = "Disease")
@@ -75,45 +75,46 @@ plt.title("Maximum heart rate as a function of age",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Age", fontsize = 14)
 plt.ylabel("Maximum Heart Rate", fontsize = 14)
-plt.savefig('plots/Vancouver_1_max_heart_rate_vs_age.png')
+plt.savefig('plots/vancouver_1_max_heart_rate_vs_age.png')
 plt.show()
 
 
 #  Cholesterol level vs age (+ target) (1 = male; 0 = female)
 plt.figure(figsize = (15,8))
 sns.set(font_scale = 1.2)
-sns.scatterplot(data = df_h, x = "age", y = "chol", 
+sns.scatterplot(data = df_v, x = "age", y = "chol", 
                 hue = "sex", size = "chol", sizes = (50, 300), 
                 palette = "pastel", alpha = .8)
 plt.title("Cholesterol level as a function of age", 
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Age", fontsize = 16)
 plt.ylabel("Cholesterol level", fontsize = 16)
-plt.savefig('plots/Vancouver_2_chol_level.png')
+plt.savefig('plots/vancouver_2_chol_level.png')
 plt.show()
 
 # Blood pressure vs pain chest (1 = male; 0 = female)
 plt.figure(figsize = (15,8))
-df_h.loc[(df_h.cp == 1), 'cp'] = 'Typical angina'
-df_h.loc[(df_h.cp == 2), 'cp'] = 'Atypical angina'
-df_h.loc[(df_h.cp == 3), 'cp'] = 'Non-anginal pain'
-df_h.loc[(df_h.cp == 4), 'cp'] = 'Asymptomatic'
-sns.boxplot(data = df_h, x = "cp", y = "trestbps", 
+df_v.loc[(df_v.cp == 1), 'cp'] = 'Typical angina'
+df_v.loc[(df_v.cp == 2), 'cp'] = 'Atypical angina'
+df_v.loc[(df_v.cp == 3), 'cp'] = 'Non-anginal pain'
+df_v.loc[(df_v.cp == 4), 'cp'] = 'Asymptomatic'
+sns.boxplot(data = df_v, x = "cp", y = "trestbps", 
             hue = "sex", palette = "pastel")
 plt.title("Blood pressure vs chest pain categories", 
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Chest pain", fontsize = 14)
 plt.ylabel("Blood pressure", fontsize = 14)
-plt.savefig('plots/Vancouver_3_blood_pressure_vs_cp.png')
+plt.savefig('plots/vancouver_3_blood_pressure_vs_cp.png')
 plt.show()
 
 
 # Correlation between features
-C = df_h.drop(['num'], axis = 1)
-C.corrwith(df_h['num']).plot.bar(figsize = (15, 8), 
+C = df_v.drop(['num'], axis = 1)
+C.corrwith(df_v['num']).plot.bar(figsize = (15, 8), 
                                  title = "Correlation of the features with the target variable", fontsize = 18,
                                  rot = 90, grid = True)
-plt.savefig('plots/Vancouver_4_correlation_of_features.png')
+plt.savefig('plots/vancouver_4_correlation_of_features_and_target.png')
+
 corrMatrix = C.corr()
 mask = np.zeros_like(corrMatrix, dtype = np.bool)
 mask[np.triu_indices_from(mask)] = True
@@ -121,23 +122,23 @@ f, ax = plt.subplots(figsize=(15, 8))
 cmap = sns.diverging_palette(220, 10, as_cmap=True)
 sns.heatmap(corrMatrix, mask = mask, cmap=cmap, vmax=.5, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
-plt.savefig('plots/Vancouver_5_correlation_matrix.png')
+plt.savefig('plots/vancouver_5_correlation_matrix.png')
 
 
 # Blood pressure vs age (+ target)
 sns.lmplot(x = 'age', y = 'trestbps', hue = 'num', 
-           col='num', ci=95, data=df_h, order=1, height = 2.5).set(ylabel="Blood pressure", 
+           col='num', ci=95, data=df_v, order=1, height = 2.5).set(ylabel="Blood pressure", 
                                                      xlabel='Age').fig.suptitle("Effects of age on blood pressure", 
                                                                                 fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
-plt.savefig('plots/Vancouver_6_blood_pressure_vs_age_target.png')
+plt.savefig('plots/vancouver_6_blood_pressure_vs_age_target.png')
                                                 
 
 # Maximum heart rate vs age (+ target)
-sns.lmplot(x = 'age', y = 'thalach', data = df_h,
+sns.lmplot(x = 'age', y = 'thalach', data = df_v,
            hue = 'num', col= 'num', ci=95, order=1, height = 2.5).set(ylabel="Maximum heart rate",
                                                         xlabel="Age").fig.suptitle("Effects of age on heart rate", 
                                                                                    fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
-plt.savefig('plots/Vancouver_7_max_heart_rate_vs_age_target.png')                                                                                   
+plt.savefig('plots/vancouver_7_max_heart_rate_vs_age_target.png')                                                                                   
 
 # 'thalach' refers to the maximum heart rate achieved during thalium stress test.
 # At first sight, we might suppose that the maximum heart rate is lower for those diagnosed with heart diseases. 
@@ -146,19 +147,20 @@ plt.savefig('plots/Vancouver_7_max_heart_rate_vs_age_target.png')
 # Distribution of age vs disease
 
 plt.figure(figsize = (15,8))
-sns.kdeplot(x = df_h.loc[df_h['num']==4,'age' ], shade = True, label = '4')
-sns.kdeplot(x = df_h.loc[df_h['num']==3,'age' ], shade = True, label = '3')
-sns.kdeplot(x = df_h.loc[df_h['num']==2,'age' ], shade = True, label = '2')
-sns.kdeplot(x = df_h.loc[df_h['num']==1,'age' ], shade = True, label = '1')
-sns.kdeplot(x = df_h.loc[df_h['num']==0,'age' ], shade = True, label = '0')
+sns.kdeplot(x = df_v.loc[df_v['num']==4,'age' ], shade = True, label = '4')
+sns.kdeplot(x = df_v.loc[df_v['num']==3,'age' ], shade = True, label = '3')
+sns.kdeplot(x = df_v.loc[df_v['num']==2,'age' ], shade = True, label = '2')
+sns.kdeplot(x = df_v.loc[df_v['num']==1,'age' ], shade = True, label = '1')
+sns.kdeplot(x = df_v.loc[df_v['num']==0,'age' ], shade = True, label = '0')
 plt.title("Distributions of age according to the presence of heart disease", y = 1.05, fontsize = 16, fontstyle='oblique')
 plt.legend()
-plt.savefig('plots/Vancouver_8_distribution_disease_vs_age.png')
+plt.show() # ???
+plt.savefig('plots/vancouver_8_distribution_disease_vs_age.png')
 
 # Comprare the distribution of the disease according to age and sex
-df_h.groupby('sex')['age'].hist()
-df_h.groupby('sex').age.plot(kind='kde')
-plt.savefig('plots/Vancouver_9_distribution_disease_vs_age_and_sex.png')
+df_v.groupby('sex')['age'].hist()
+df_v.groupby('sex').age.plot(kind='kde')
+plt.savefig('plots/vancouver_9_distribution_disease_vs_age_and_sex.png')
   
 
 
@@ -166,16 +168,16 @@ plt.savefig('plots/Vancouver_9_distribution_disease_vs_age_and_sex.png')
 #######################################################################
 #------------------------ SPLITTING THE DATASET -----------------------
 #######################################################################
-# Renaming cols
-df_h.loc[(df_h.cp == 'Typical angina'), 'cp'] = 1
-df_h.loc[(df_h.cp == 'Atypical angina'), 'cp'] = 2
-df_h.loc[(df_h.cp == 'Non-anginal pain'), 'cp'] = 3
-df_h.loc[(df_h.cp == 'Asymptomatic'), 'cp'] = 4
 
+# Renaming cols
+df_v.loc[(df_v.cp == 'Typical angina'), 'cp'] = 1
+df_v.loc[(df_v.cp == 'Atypical angina'), 'cp'] = 2
+df_v.loc[(df_v.cp == 'Non-anginal pain'), 'cp'] = 3
+df_v.loc[(df_v.cp == 'Asymptomatic'), 'cp'] = 4
 
 # Split the dataset
-X = df_h.loc[:, df_h.columns != 'num']
-y = df_h.loc[:, 'num']
+X = df_v.loc[:, df_v.columns != 'num']
+y = df_v.loc[:, 'num']
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, 
                                                                     train_size=0.75,
                                                                     test_size=0.25, 
@@ -209,15 +211,15 @@ importances.head(25).sum() # with 25 features, we can "explain" for 80 %
 
 # Plot the dataframe of importances
 importances.plot.bar()
-plt.savefig('plots/Vancouver_10_feature_importance.png')
+plt.savefig('plots/vancouver_10_feature_importance_RFC.png')
 # the distal left anterior descending artery seems to be one of the most important features.
 # Indeed, it is part of the left main coronary artery (LAD), considered the most important because it supplies more than half of the blood to the heart.
 
 # Select the 25 most "important" features
 ind = importances.head(25).index.tolist()
-X = df_h.loc[:, df_h.columns != 'num']
+X = df_v.loc[:, df_v.columns != 'num']
 X = X.loc[:, ind]
-y = df_h.loc[:, 'num']
+y = df_v.loc[:, 'num']
 
 # Eventually save the reduced dataset
 #X.to_csv(r'C:\Users\Kalvin\Desktop\Master\UZH\Data Science\X.csv')
@@ -241,7 +243,7 @@ for index, perp in enumerate([5, 25, 45, 65]):
     plt.ylabel('')
 #plt.legend(['0', '1', '2', '3', '4'], bbox_to_anchor=(3,5), loc=2, borderaxespad=0.0)
 plt.suptitle('Dimension reduction using t-SNE')
-plt.savefig('plots/Vancouver_11_t_SNE.png')
+plt.savefig('plots/vancouver_11_t_SNE.png')
 plt.show()
 
 # Perplexity = 1 : local variations dominate
@@ -253,7 +255,7 @@ umap_2d = UMAP(random_state=0, n_neighbors = 15, min_dist = .15)
 embedded_umap = pd.DataFrame(umap_2d.fit_transform(X), columns = ['UMAP1','UMAP2'])
 sns.scatterplot(x='UMAP1', y='UMAP2', data=embedded_umap, 
                 hue = y.tolist(), alpha=.9, linewidth=.5, s = 30)
-plt.savefig('plots/Vancouver_12_UMAP.png')
+plt.savefig('plots/vancouver_12_UMAP.png')
 plt.show()
 
 # Dimensionality reduction using neural networks (Autoencoders)
@@ -287,7 +289,7 @@ cnf_matrix_LR = metrics.confusion_matrix(y_test, LR_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, LR_pred))
 plt.figure(figsize = (10, 6))
 sns.heatmap(cnf_matrix_LR, annot = True)
-plt.savefig('plots/Vancouver_13_confusion_matrix.png')
+plt.savefig('plots/vancouver_13_confusion_matrix_LR.png')
 
 # Accuracy of the model
 acc_LR = accuracy_score(y_test, LR_pred)
@@ -317,7 +319,7 @@ def ROC_Plot(y_test_bin, probs, n_classes,index):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend()
-    plt.savefig('plots/Vancouver_{}_ROC.png'.format(index))
+    plt.savefig('plots/vancouver_{}_ROC.png'.format(index))
     plt.show()
 
 ROC_Plot(y_test_bin, probs_LR, n_classes,14)
@@ -351,7 +353,7 @@ cnf_matrix_NB = metrics.confusion_matrix(y_test, naiveBayes_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, naiveBayes_pred))
 plt.figure(figsize = (10, 6))
 sns.heatmap(cnf_matrix_NB, annot = True)
-plt.savefig('plots/Vancouver_15_confusion_matrix.png')
+plt.savefig('plots/vancouver_15_confusion_matrix_naiveBayes.png')
 cnf_matrix_NB = confusion_matrix(y_test, naiveBayes_pred)
 
 # Accuracy of the model
@@ -437,7 +439,7 @@ plt.subplot(1,3,2)
 sns.heatmap(confusion_matrix(y_test, svc_poly_pred), annot = True)
 plt.subplot(1,3,3)
 sns.heatmap(confusion_matrix(y_test, svc_rbf_pred), annot = True)
-plt.savefig('plots/Vancouver_20_confusion_matrices.png')
+plt.savefig('plots/vancouver_20_confusion_matrices_SVC_lin_poly_rbf).png')
 
 
 
@@ -480,7 +482,7 @@ plt.plot(k_range, k_scores)
 plt.xlabel('Value of K for KNN')
 plt.ylabel('Accuracy')
 #plt.ylabel('Cross-Validated Accuracy')
-plt.savefig('plots/Vancouver_21_KNN.png')
+plt.savefig('plots/vancouver_21_KNN.png')
 plt.show()
 
 # AUC & ROC Curve

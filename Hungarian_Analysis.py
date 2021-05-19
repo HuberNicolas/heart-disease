@@ -75,7 +75,9 @@ plt.title("Maximum heart rate as a function of age",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Age", fontsize = 14)
 plt.ylabel("Maximum Heart Rate", fontsize = 14)
+plt.savefig('plots/hungarian_1_max_heart_rate_vs_age.png')
 plt.show()
+
 
 #  Cholesterol level vs age (+ target) (1 = male; 0 = female)
 plt.figure(figsize = (15,8))
@@ -87,6 +89,7 @@ plt.title("Cholesterol level as a function of age",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Age", fontsize = 16)
 plt.ylabel("Cholesterol level", fontsize = 16)
+plt.savefig('plots/hungarian_2_chol_level.png')
 plt.show()
 
 # Blood pressure vs pain chest (1 = male; 0 = female)
@@ -101,6 +104,7 @@ plt.title("Blood pressure vs chest pain categories",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Chest pain", fontsize = 14)
 plt.ylabel("Blood pressure", fontsize = 14)
+plt.savefig('plots/hungarian_3_blood_pressure_vs_cp.png')
 plt.show()
 
 
@@ -109,6 +113,7 @@ C = df_h.drop(['num'], axis = 1)
 C.corrwith(df_h['num']).plot.bar(figsize = (15, 8), 
                                  title = "Correlation of the features with the target variable", fontsize = 18,
                                  rot = 90, grid = True)
+plt.savefig('plots/hungarian_4_correlation_of_features_and_target.png')
 
 corrMatrix = C.corr()
 mask = np.zeros_like(corrMatrix, dtype = np.bool)
@@ -117,6 +122,7 @@ f, ax = plt.subplots(figsize=(15, 8))
 cmap = sns.diverging_palette(220, 10, as_cmap=True)
 sns.heatmap(corrMatrix, mask = mask, cmap=cmap, vmax=.5, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
+plt.savefig('plots/hungarian_5_correlation_matrix.png')
 
 
 # Blood pressure vs age (+ target)
@@ -124,6 +130,7 @@ sns.lmplot(x = 'age', y = 'trestbps', hue = 'num',
            col='num', ci=95, data=df_h, order=1, height = 2.5).set(ylabel="Blood pressure", 
                                                      xlabel='Age').fig.suptitle("Effects of age on blood pressure", 
                                                                                 fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
+plt.savefig('plots/hungarian_6_blood_pressure_vs_age_target.png')
                                                 
 
 # Maximum heart rate vs age (+ target)
@@ -131,12 +138,14 @@ sns.lmplot(x = 'age', y = 'thalach', data = df_h,
            hue = 'num', col= 'num', ci=95, order=1, height = 2.5).set(ylabel="Maximum heart rate",
                                                         xlabel="Age").fig.suptitle("Effects of age on heart rate", 
                                                                                    fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
+plt.savefig('plots/hungarian_7_max_heart_rate_vs_age_target.png')                                                                                   
 
 # 'thalach' refers to the maximum heart rate achieved during thalium stress test.
 # At first sight, we might suppose that the maximum heart rate is lower for those diagnosed with heart diseases. 
 # Indeed, it seems logical to assume that a higher rate indicates a satisfactory heart condition since it managed to increase its rate to such a level during the stress test.
  
 # Distribution of age vs disease
+
 plt.figure(figsize = (15,8))
 sns.kdeplot(x = df_h.loc[df_h['num']==4,'age' ], shade = True, label = '4')
 sns.kdeplot(x = df_h.loc[df_h['num']==3,'age' ], shade = True, label = '3')
@@ -145,22 +154,26 @@ sns.kdeplot(x = df_h.loc[df_h['num']==1,'age' ], shade = True, label = '1')
 sns.kdeplot(x = df_h.loc[df_h['num']==0,'age' ], shade = True, label = '0')
 plt.title("Distributions of age according to the presence of heart disease", y = 1.05, fontsize = 16, fontstyle='oblique')
 plt.legend()
+plt.show() # ???
+plt.savefig('plots/hungarian_8_distribution_disease_vs_age.png')
 
 # Comprare the distribution of the disease according to age and sex
 df_h.groupby('sex')['age'].hist()
 df_h.groupby('sex').age.plot(kind='kde')
+plt.savefig('plots/hungarian_9_distribution_disease_vs_age_and_sex.png')
+  
 
 
 
 #######################################################################
 #------------------------ SPLITTING THE DATASET -----------------------
 #######################################################################
+
 # Renaming cols
 df_h.loc[(df_h.cp == 'Typical angina'), 'cp'] = 1
 df_h.loc[(df_h.cp == 'Atypical angina'), 'cp'] = 2
 df_h.loc[(df_h.cp == 'Non-anginal pain'), 'cp'] = 3
 df_h.loc[(df_h.cp == 'Asymptomatic'), 'cp'] = 4
-
 
 # Split the dataset
 X = df_h.loc[:, df_h.columns != 'num']
@@ -198,6 +211,7 @@ importances.head(25).sum() # with 25 features, we can "explain" for 80 %
 
 # Plot the dataframe of importances
 importances.plot.bar()
+plt.savefig('plots/hungarian_10_feature_importance_RFC.png')
 # the distal left anterior descending artery seems to be one of the most important features.
 # Indeed, it is part of the left main coronary artery (LAD), considered the most important because it supplies more than half of the blood to the heart.
 
@@ -229,6 +243,7 @@ for index, perp in enumerate([5, 25, 45, 65]):
     plt.ylabel('')
 #plt.legend(['0', '1', '2', '3', '4'], bbox_to_anchor=(3,5), loc=2, borderaxespad=0.0)
 plt.suptitle('Dimension reduction using t-SNE')
+plt.savefig('plots/hungarian_11_t_SNE.png')
 plt.show()
 
 # Perplexity = 1 : local variations dominate
@@ -240,6 +255,7 @@ umap_2d = UMAP(random_state=0, n_neighbors = 15, min_dist = .15)
 embedded_umap = pd.DataFrame(umap_2d.fit_transform(X), columns = ['UMAP1','UMAP2'])
 sns.scatterplot(x='UMAP1', y='UMAP2', data=embedded_umap, 
                 hue = y.tolist(), alpha=.9, linewidth=.5, s = 30)
+plt.savefig('plots/hungarian_12_UMAP.png')
 plt.show()
 
 # Dimensionality reduction using neural networks (Autoencoders)
@@ -273,6 +289,7 @@ cnf_matrix_LR = metrics.confusion_matrix(y_test, LR_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, LR_pred))
 plt.figure(figsize = (10, 6))
 sns.heatmap(cnf_matrix_LR, annot = True)
+plt.savefig('plots/hungarian_13_confusion_matrix_LR.png')
 
 # Accuracy of the model
 acc_LR = accuracy_score(y_test, LR_pred)
@@ -286,7 +303,7 @@ n_classes = y_test_bin.shape[1]
 auc = metrics.roc_auc_score(y_test_bin, probs_LR)
 print('AUC: %.2f' % auc)
 
-def ROC_Plot(y_test_bin, probs, n_classes):
+def ROC_Plot(y_test_bin, probs, n_classes,index):
     lyst = [[], [], [], [], []]
     colors = ['tomato', 'orange', 'gold', 'cornflowerblue', 'chocolate']
     
@@ -302,9 +319,10 @@ def ROC_Plot(y_test_bin, probs, n_classes):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curve')
     plt.legend()
+    plt.savefig('plots/hungarian_{}_ROC.png'.format(index))
     plt.show()
 
-ROC_Plot(y_test_bin, probs_LR, n_classes)
+ROC_Plot(y_test_bin, probs_LR, n_classes,14)
 
 
 
@@ -335,6 +353,7 @@ cnf_matrix_NB = metrics.confusion_matrix(y_test, naiveBayes_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, naiveBayes_pred))
 plt.figure(figsize = (10, 6))
 sns.heatmap(cnf_matrix_NB, annot = True)
+plt.savefig('plots/hungarian_15_confusion_matrix_naiveBayes.png')
 cnf_matrix_NB = confusion_matrix(y_test, naiveBayes_pred)
 
 # Accuracy of the model
@@ -349,7 +368,7 @@ n_classes = y_test_bin.shape[1]
 auc = metrics.roc_auc_score(y_test_bin, probs_NB)
 print('AUC: %.2f' % auc)
 
-ROC_Plot(y_test_bin, probs_NB, n_classes)
+ROC_Plot(y_test_bin, probs_NB, n_classes,16)
 
 
 
@@ -378,7 +397,7 @@ print(svc_linear_acc)
 probs_svclinear = svc_linear.predict_proba(X_test)
 y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
 n_classes = y_test_bin.shape[1]
-ROC_Plot(y_test_bin, probs_svclinear, n_classes)
+ROC_Plot(y_test_bin, probs_svclinear, n_classes,17)
 
 # SVM using a polynomial kernel
 svc_poly = svm.SVC(kernel = 'poly', degree = 3)
@@ -393,7 +412,7 @@ print(svc_poly_acc)
 probs_svcpoly = svc_poly.predict_proba(X_test)
 y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
 n_classes = y_test_bin.shape[1]
-ROC_Plot(y_test_bin, probs_svcpoly, n_classes)
+ROC_Plot(y_test_bin, probs_svcpoly, n_classes,18)
 
 # SVM using a RBF kernel
 # C - a high C tries to minimize the misclassification of training data and a low value tries to maintain a smooth classification.
@@ -410,7 +429,7 @@ print(svc_rbf_acc)
 probs_svcrbf = svc_rbf.predict_proba(X_test)
 y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
 n_classes = y_test_bin.shape[1]
-ROC_Plot(y_test_bin, probs_svcrbf, n_classes)
+ROC_Plot(y_test_bin, probs_svcrbf, n_classes,19)
 
 # Confusion matrices
 plt.figure(figsize = (10, 5))
@@ -420,6 +439,7 @@ plt.subplot(1,3,2)
 sns.heatmap(confusion_matrix(y_test, svc_poly_pred), annot = True)
 plt.subplot(1,3,3)
 sns.heatmap(confusion_matrix(y_test, svc_rbf_pred), annot = True)
+plt.savefig('plots/hungarian_20_confusion_matrices_SVC_lin_poly_rbf).png')
 
 
 
@@ -462,13 +482,14 @@ plt.plot(k_range, k_scores)
 plt.xlabel('Value of K for KNN')
 plt.ylabel('Accuracy')
 #plt.ylabel('Cross-Validated Accuracy')
+plt.savefig('plots/hungarian_21_KNN.png')
 plt.show()
 
 # AUC & ROC Curve
 probs_knn = knn.predict_proba(X_test)
 y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
 n_classes = y_test_bin.shape[1]
-ROC_Plot(y_test_bin, probs_knn, n_classes)
+ROC_Plot(y_test_bin, probs_knn, n_classes,22)
 
 
 

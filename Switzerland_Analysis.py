@@ -75,6 +75,7 @@ plt.title("Maximum heart rate as a function of age",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Age", fontsize = 14)
 plt.ylabel("Maximum Heart Rate", fontsize = 14)
+plt.savefig('plots/switzerland_1_max_heart_rate_vs_age.png')
 plt.show()
 
 #  Cholesterol level vs age (+ target) (1 = male; 0 = female)
@@ -104,6 +105,7 @@ plt.title("Blood pressure vs chest pain categories",
           fontsize = 20, fontstyle = "italic")
 plt.xlabel("Chest pain", fontsize = 14)
 plt.ylabel("Blood pressure", fontsize = 14)
+plt.savefig('plots/switzerland_3_blood_pressure_vs_cp.png')
 plt.show()
 
 
@@ -112,6 +114,7 @@ C = df_s.drop(['num'], axis = 1)
 C.corrwith(df_s['num']).plot.bar(figsize = (15, 8), 
                                  title = "Correlation of the features with the target variable", fontsize = 18,
                                  rot = 90, grid = True)
+plt.savefig('plots/switzerland_4_correlation_of_features_and_target.png')
 
 corrMatrix = C.corr()
 mask = np.zeros_like(corrMatrix, dtype = np.bool)
@@ -120,6 +123,7 @@ f, ax = plt.subplots(figsize=(15, 8))
 cmap = sns.diverging_palette(220, 10, as_cmap=True)
 sns.heatmap(corrMatrix, mask = mask, cmap=cmap, vmax=.5, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": .5})
+plt.savefig('plots/switzerland_5_correlation_matrix.png')
 
 
 # Blood pressure vs age (+ target)
@@ -127,13 +131,14 @@ sns.lmplot(x = 'age', y = 'trestbps', hue = 'num',
            col='num', ci=95, data=df_s, order=1, height = 2.5).set(ylabel="Blood pressure", 
                                                      xlabel='Age').fig.suptitle("Effects of age on blood pressure", 
                                                                                 fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
-                                                
+plt.savefig('plots/switzerland_6_blood_pressure_vs_age_target.png')                                            
 
 # Maximum heart rate vs age (+ target)
 sns.lmplot(x = 'age', y = 'thalach', data = df_s,
            hue = 'num', col= 'num', ci=95, order=1, height = 2.5).set(ylabel="Maximum heart rate",
                                                         xlabel="Age").fig.suptitle("Effects of age on heart rate", 
                                                                                    fontsize=20, x=0.53, y=1.05, fontstyle='oblique')
+plt.savefig('plots/switzerland_7_max_heart_rate_vs_age_target.png')      
 
 # 'thalach' refers to the maximum heart rate achieved during thalium stress test.
 # At first sight, we might suppose that the maximum heart rate is lower for those diagnosed with heart diseases. 
@@ -148,11 +153,13 @@ sns.kdeplot(x = df_s.loc[df_s['num']==1,'age' ], shade = True, label = '1')
 sns.kdeplot(x = df_s.loc[df_s['num']==0,'age' ], shade = True, label = '0')
 plt.title("Distributions of age according to the presence of heart disease", y = 1.05, fontsize = 16, fontstyle='oblique')
 plt.legend()
+plt.show()
+plt.savefig('plots/switzerland_8_distribution_disease_vs_age.png')
 
 # Comprare the distribution of the disease according to age and sex
 df_s.groupby('sex')['age'].hist()
 df_s.groupby('sex').age.plot(kind='kde')
-
+plt.savefig('plots/switzerland_9_distribution_disease_vs_age_and_sex.png')
 
 
 #######################################################################
@@ -201,6 +208,7 @@ importances.head(25).sum() # with 25 features, we can "explain" for 80 %
 
 # Plot the dataframe of importances
 importances.plot.bar()
+plt.savefig('plots/switzerland_10_feature_importance_RFC.png')
 # the distal left anterior descending artery seems to be one of the most important features.
 # Indeed, it is part of the left main coronary artery (LAD), considered the most important because it supplies more than half of the blood to the heart.
 
@@ -232,6 +240,7 @@ for index, perp in enumerate([5, 25, 45, 65]):
     plt.ylabel('')
 #plt.legend(['0', '1', '2', '3', '4'], bbox_to_anchor=(3,5), loc=2, borderaxespad=0.0)
 plt.suptitle('Dimension reduction using t-SNE')
+plt.savefig('plots/switzerland_11_t_SNE.png')
 plt.show()
 
 # Perplexity = 1 : local variations dominate
@@ -243,6 +252,7 @@ umap_2d = UMAP(random_state=0, n_neighbors = 15, min_dist = .15)
 embedded_umap = pd.DataFrame(umap_2d.fit_transform(X), columns = ['UMAP1','UMAP2'])
 sns.scatterplot(x='UMAP1', y='UMAP2', data=embedded_umap, 
                 hue = y.tolist(), alpha=.9, linewidth=.5, s = 30)
+plt.savefig('plots/switzerland_12_UMAP.png')
 plt.show()
 
 # Dimensionality reduction using neural networks (Autoencoders)
@@ -276,6 +286,7 @@ cnf_matrix_LR = metrics.confusion_matrix(y_test, LR_pred)
 print("Accuracy:",metrics.accuracy_score(y_test, LR_pred))
 plt.figure(figsize = (10, 6))
 sns.heatmap(cnf_matrix_LR, annot = True)
+plt.savefig('plots/switzerland_13_confusion_matrix_LR.png')
 
 # Accuracy of the model
 # ROC needs > 1 y : leave out
