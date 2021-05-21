@@ -179,7 +179,8 @@ X = df_s.loc[:, df_s.columns != 'num']
 y = df_s.loc[:, 'num']
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 
@@ -278,10 +279,6 @@ X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y,
                                                                     test_size=0.25,
                                                                     shuffle=True,
                                                                     random_state=101)
-#print(X_train)
-#print(X_test)
-print(y_train)
-print(y_test)
 
 # Multinomial Logistic Regression
 log_regression = LogisticRegression(multi_class = 'multinomial', solver = 'lbfgs')
@@ -301,8 +298,6 @@ plt.savefig('plots/switzerland_13_confusion_matrix_LR.png')
 
 # Accuracy of the model
 # ROC needs > 1 y : leave out
-print(y_test)
-print(LR_pred)
 acc_LR = accuracy_score(y_test, LR_pred)
 
 # AUC & ROC Curve
@@ -312,8 +307,7 @@ probs_LR = log_regression.predict_proba(X_test)
 
 y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
 n_classes = y_test_bin.shape[1]
-print(y_test_bin)
-print(n_classes)
+
 try:
     auc = metrics.roc_auc_score(y_test_bin, probs_LR)
     print('AUC: %.2f' % auc)
