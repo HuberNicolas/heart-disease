@@ -33,6 +33,9 @@ from keras import optimizers, regularizers
 from keras.models import Sequential, Model
 from keras.layers import Activation, Dense, Dropout, Input
 
+import os
+file_dir = os.path.dirname(os.path.abspath(__file__))
+csv_folder = 'rand_forest_feature_selection(25)'
 
 
 ########################################################################
@@ -154,8 +157,8 @@ sns.kdeplot(x = df_v.loc[df_v['num']==1,'age' ], shade = True, label = '1')
 sns.kdeplot(x = df_v.loc[df_v['num']==0,'age' ], shade = True, label = '0')
 plt.title("Distributions of age according to the presence of heart disease", y = 1.05, fontsize = 16, fontstyle='oblique')
 plt.legend()
-plt.show() # ???
 plt.savefig('plots/vancouver_8_distribution_disease_vs_age.png')
+plt.show()
 
 # Comprare the distribution of the disease according to age and sex
 df_v.groupby('sex')['age'].hist()
@@ -180,7 +183,8 @@ X = df_v.loc[:, df_v.columns != 'num']
 y = df_v.loc[:, 'num']
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 
@@ -222,8 +226,13 @@ X = X.loc[:, ind]
 y = df_v.loc[:, 'num']
 
 # Eventually save the reduced dataset
-#X.to_csv(r'C:\Users\Kalvin\Desktop\Master\UZH\Data Science\X.csv')
-#y.to_csv(r'C:\Users\Kalvin\Desktop\Master\UZH\Data Science\y.csv')
+file_path = os.path.join(file_dir, csv_folder, 'long-beach-va_X_25_header.csv.csv')
+X.to_csv(file_path, index = False, header=True)
+#X.to_csv(r'C:\Users\Nicolas\Desktop\long-beach-va_X_25_header.csv', index = False, header=True) # absolute path
+file_path = os.path.join(file_dir, csv_folder, 'long-beach-va_y_25_header.csv.csv')
+#y.to_csv(r'C:\Users\Nicolas\Desktop\long-beach-va_y_25_header.csv', index = False, header=True) # absolute path
+y.to_csv(file_path, index = False, header=True)
+
 
 
 ##########################################################################
@@ -272,7 +281,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # Multinomial Logistic Regression
@@ -338,7 +348,8 @@ X_scaled = scaling.fit_transform(X)
 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # Naîve Bayes
@@ -381,7 +392,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # SVM using a linear kernel
@@ -452,7 +464,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # KNN
@@ -502,7 +515,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 X_train.shape
 y_train.shape

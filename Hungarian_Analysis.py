@@ -33,7 +33,9 @@ from keras import optimizers, regularizers
 from keras.models import Sequential, Model
 from keras.layers import Activation, Dense, Dropout, Input
 
-
+import os
+file_dir = os.path.dirname(os.path.abspath(__file__))
+csv_folder = 'rand_forest_feature_selection(25)'
 
 ########################################################################
 #------------------ PREPROCESSING & DATA VISUALIZATION -----------------
@@ -154,8 +156,8 @@ sns.kdeplot(x = df_h.loc[df_h['num']==1,'age' ], shade = True, label = '1')
 sns.kdeplot(x = df_h.loc[df_h['num']==0,'age' ], shade = True, label = '0')
 plt.title("Distributions of age according to the presence of heart disease", y = 1.05, fontsize = 16, fontstyle='oblique')
 plt.legend()
-plt.show() # ???
 plt.savefig('plots/hungarian_8_distribution_disease_vs_age.png')
+plt.show()
 
 # Comprare the distribution of the disease according to age and sex
 df_h.groupby('sex')['age'].hist()
@@ -180,7 +182,8 @@ X = df_h.loc[:, df_h.columns != 'num']
 y = df_h.loc[:, 'num']
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 
@@ -222,8 +225,12 @@ X = X.loc[:, ind]
 y = df_h.loc[:, 'num']
 
 # Eventually save the reduced dataset
-#X.to_csv(r'C:\Users\Kalvin\Desktop\Master\UZH\Data Science\X.csv')
-#y.to_csv(r'C:\Users\Kalvin\Desktop\Master\UZH\Data Science\y.csv')
+file_path = os.path.join(file_dir, csv_folder, 'hungarian_X_25_header.csv.csv')
+X.to_csv(file_path, index = False, header=True)
+#X.to_csv(r'C:\Users\Nicolas\Desktop\hungarian_X_25_header.csv', index = False, header=True) # absolute path
+file_path = os.path.join(file_dir, csv_folder, 'hungarian_y_25_header.csv.csv')
+#y.to_csv(r'C:\Users\Nicolas\Desktop\hungarian_y_25_header.csv', index = False, header=True) # absolute path
+y.to_csv(file_path, index = False, header=True)
 
 
 ##########################################################################
@@ -272,7 +279,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # Multinomial Logistic Regression
@@ -338,7 +346,8 @@ X_scaled = scaling.fit_transform(X)
 
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # Naîve Bayes
@@ -381,7 +390,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # SVM using a linear kernel
@@ -452,7 +462,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 
 # KNN
@@ -502,7 +513,8 @@ scaling = StandardScaler()
 X_scaled = scaling.fit_transform(X)
 X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y, 
                                                                     train_size=0.75,
-                                                                    test_size=0.25, 
+                                                                    test_size=0.25,
+                                                                    shuffle=True, 
                                                                     random_state=101)
 X_train.shape
 y_train.shape
@@ -548,308 +560,3 @@ p = model.predict(X_test)
 p = (p > 0.5)
 print('Accuracy of the model: %.3f%%' % (accuracy_score(y_test_bin, p)*100))
 #print(classification_report(y_test_bin, p))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-""" SKIP 
-def make_meshgrid(x, y, h=.02):
-    x_min, x_max = x.min() - 1, x.max() + 1
-    y_min, y_max = y.min() - 1, y.max() + 1
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-    return xx, yy
-
-def plot_contours(ax, clf, xx, yy, **params):
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    out = ax.contourf(xx, yy, Z, **params)
-    return out
-
-model = svm.SVC(kernel='linear')
-clf = model.fit(X_scaled, y)
-
-fig, ax = plt.subplots()
-# title for the plots
-title = ('Decision surface of linear SVC ')
-# Set-up grid for plotting.
-X0, X1 = X_scaled[:, 0], X_scaled[:, 1]
-xx, yy = make_meshgrid(X0, X1)
-
-plot_contours(ax, clf, xx, yy, cmap=plt.cm.coolwarm, alpha=0.8)
-ax.scatter(X0, X1, c=y, cmap=plt.cm.coolwarm, s=20, edgecolors='k')
-ax.set_ylabel('y label here')
-ax.set_xlabel('x label here')
-ax.set_xticks(())
-ax.set_yticks(())
-ax.set_title(title)
-ax.legend()
-plt.show()
-
-
-# # SVM regularization parameter
-# C = 1
-# # SVC with linear kernel
-# svc = svm.SVC(kernel = 'linear', C=C).fit(X, y)
-
-# # LinearSVC (linear kernel)
-# lin_svc = svm.LinearSVC(C=C).fit(X, y)
-
-# # SVC with RBF kernel
-# rbf_svc = svm.SVC(kernel='rbf', gamma=0.7, C=C).fit(X, y)
-
-# # SVC with polynomial (degree 3) kernel
-# poly_svc = svm.SVC(kernel='poly', degree=3, C=C).fit(X, y)
-
-# # step size in the mesh
-# h = 0.02
- 
-# # create a mesh to plot in
-# x_min, x_max = X_svm.iloc[:, 0].min() - 1, X_svm.iloc[:, 0].max() + 1
-# y_min, y_max = X_svm.iloc[:, 1].min() - 1, X_svm.iloc[:, 1].max() + 1
-# xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-#                      np.arange(y_min, y_max, h))
-
-# # title for the plots
-# titles = ['SVC with linear kernel',
-# 	   'LinearSVC (linear kernel)',
-# 	    'SVC with RBF kernel',
-# 	    'SVC with polynomial (degree 3) kernel']
- 
- 
-# for i, clf in enumerate((svc, rbf_svc, poly_svc)):
-# 	 # Plot the decision boundary. For that, we will assign a color to each
-# 	 # point in the mesh [x_min, x_max]x[y_min, y_max].
-# 	 plt.subplot(1, 3, i + 1)
-# 	 plt.subplots_adjust(wspace=0.4, hspace=0.4)
- 
-# 	 Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
- 
-# 	 # Put the result into a color plot
-# 	 Z = Z.reshape(xx.shape)
-# 	 plt.contourf(xx, yy, Z, cmap=plt.cm.coolwarm, alpha=0.8)
- 
-# 	 # Plot also the training points
-# 	 plt.scatter(X_svm.iloc[:, 0], X_svm.iloc[:, 1], c=y, cmap=plt.cm.coolwarm)
-# 	 #plt.xlabel('Sepal length')
-# 	 #plt.ylabel('Sepal width')
-# 	 plt.xlim(xx.min(), xx.max())
-# 	 plt.ylim(yy.min(), yy.max())
-# 	 plt.xticks(())
-# 	 plt.yticks(())
-# 	 plt.title(titles[i])
- 
-# plt.show()
-
-# X.loc[:,'chol']
-"""
-
-
-
-
-
-""" SKIP
-
-def Multiclass_LogRegression(X_train, y_train, X_test, y_test):
-    log_regression = LogisticRegression(multi_class = 'multinomial', solver = 'lbfgs')
-    y_score = log_regression.fit(X_train, y_train).decision_function(X_test)
-    y_pred = log_regression.predict(X_test)
-    return log_regression, y_score, y_pred
-
-log_regression, y_score, y_pred = Multiclass_LogRegression(X_train, y_train, X_test, y_test)
-
-def Confusion_Matrix(y_test, y_pred):
-    cnf_matrix_LR = metrics.confusion_matrix(y_test, y_pred)
-    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
-    plt.figure(figsize = (10, 6))
-    sns.heatmap(cnf_matrix_LR, annot = True)
-
-Confusion_Matrix(y_test, y_pred)
-
-def AUC(log_regression, X_test, y_test):
-    probs = log_regression.predict_proba(X_test)
-
-    y_test_bin = label_binarize(y_test, classes = [0, 1, 2, 3, 4])
-    n_classes = y_test_bin.shape[1]
-    
-    auc = metrics.roc_auc_score(y_test_bin, probs)
-    print('AUC: %.2f' % auc)
-    return probs, n_classes, y_test_bin
-
-probs, n_classes, y_test_bin = AUC(log_regression, X_test, y_pred)
-"""
-
-
-""" SKIP
-
-#--------------------------------- Autoencoders --------------------------------
-# https://github.com/georsara1/Autoencoders-for-dimensionality-reduction/blob/master/autoencoder.py
-# Reduce the dimensionality of the data using a neural network approach
-# Encode categorical variables to ONE-HOT
-y_onehot = to_categorical(y)
-#y_onehot = pd.get_dummies(y, prefix = 'y')
-
-#Scale variables to [0,1] range
-X.dtypes
-X_scaled = X.apply(lambda x: (x-x.min())/(x.max()-x.min()))
-
-#Split in 75% train and 25% test set
-X_train, X_test, y_train, y_test = model_selection.train_test_split(X_scaled, y_onehot2, 
-                                                                    test_size = 0.15, 
-                                                                    random_state = 0)
-
-# Check distribution of labels in train and test set
-X_train.shape
-y_train.shape
-X_test.shape
-y_test.shape
-
-# Build the Autoencoder
-# Choose size of our encoded representations (we will reduce our initial features to this number)
-encoding_dim = 2
-
-# Define input layer
-input_data = Input(shape = (X_train.shape[1],))
-
-# Define encoding layer
-encoded = Dense(encoding_dim, activation = 'relu')(input_data)
-
-# Define decoding layer
-decoded = Dense(X_train.shape[1], activation= 'sigmoid')(encoded)
-
-# Create the autoencoder model
-autoencoder = Model(input_data, decoded)
-
-#Compile the autoencoder model
-autoencoder.compile(optimizer='rmsprop', 
-                    loss='sparse_categorical_crossentropy', 
-                    metrics=['accuracy'])
-
-autoencoder.compile(optimizer = 'adadelta', loss='categorical_crossentropy')
-
-# Fit to train set, validate with dev set and save to hist_auto for plotting purposes
-hist_auto = autoencoder.fit(X_train, X_train,
-                            epochs=50,
-                            batch_size=16,
-                            shuffle=True,
-                            validation_split = 0.1)
-# validation_set ?
-#autoencoder.summary()
-
-# Summarize history for loss
-plt.figure()
-plt.plot(hist_auto.history['loss'])
-plt.plot(hist_auto.history['val_loss'])
-plt.title('Autoencoder model loss')
-plt.ylabel('loss')
-plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper right')
-plt.show()
-
-# Predict on test set
-encoded_data = encoder.predict(X_test)
-encoded_data_prob = encoded_data[:,0]
-
-predictions = np.where(encoded_data_prob > 0.5, 1, 0)
-
-# Convert one-hot labels
-rounded_labels = np.argmax(y_test, axis=1)
-
-# Print accuracy
-acc = accuracy_score(rounded_labels, predictions)
-print('Overall accuracy of Neural Network model:', acc)
-
-# Compute and visualize the confusion matrix
-cm = confusion_matrix(rounded_labels, predictions)
-plt.figure(figsize=(8,6))
-sns.heatmap(cm, annot=True, fmt='d', cmap="Blues", vmin = 0.5);
-plt.title('Confusion Matrix')
-plt.ylabel('True Class')
-plt.xlabel('Predicted Class')
-plt.show()
-
-# Vizualize the encoded part
-encoder = Model(input_data, encoded)
-encoded_data = encoder.predict(X_test)
-
-encoded_data_df = pd.DataFrame(encoded_data)
-
-plt.scatter(encoded_data_df.loc[:,0], encoded_data_df.loc[:,1], c = y.tolist(), s = 30)
-encoded_data
-
-
-##################### ALTERNATIVE ############################
-# https://towardsdatascience.com/build-the-right-autoencoder-tune-and-optimize-using-pca-principles-part-i-1f01f821999b
-# Fit Autoencoder
-# nb_epoch = 100
-# batch_size = 16 # Too much ??
-# input_dim = X_train.shape[1] #num of predictor variables, 
-# encoding_dim = 2
-# learning_rate = 1e-3
-
-# encoder = Dense(encoding_dim, activation="linear", input_shape=(input_dim,), use_bias = True) 
-# decoder = Dense(input_dim, activation="linear", use_bias = True)
-
-# autoencoder = Sequential()
-# autoencoder.add(encoder)
-# autoencoder.add(decoder)
-
-# autoencoder.compile(metrics=['accuracy'],
-#                     loss='mean_squared_error',
-#                     optimizer='sgd')
-# autoencoder.summary()
-
-# autoencoder.fit(X_train_scaled, X_train_scaled,
-#                 epochs=nb_epoch,
-#                 batch_size=batch_size,
-#                 shuffle=True,
-#                 verbose=0)
-
-# # Get the weights
-# w_encoder = np.round(autoencoder.layers[0].get_weights()[0], 2).T
-# w_decoder = np.round(autoencoder.layers[1].get_weights()[0], 2)  # W' in Figure 3.
-# print('Encoder weights \n', w_encoder)
-# print('Decoder weights \n', w_decoder)
-
-# np.round(np.dot(w_encoder, w_encoder.T), 3)
-
-
-https://harvard-iacs.github.io/2021-CS109B/lectures/lecture26/notebook2/
-https://www.r-bloggers.com/2018/07/pca-vs-autoencoders-for-dimensionality-reduction/
-"""
-
-
-
-
-
-
-
-
