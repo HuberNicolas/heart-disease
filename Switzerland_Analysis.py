@@ -101,6 +101,7 @@ df_s.loc[(df_s.cp == 1), 'cp'] = 'Typical angina'
 df_s.loc[(df_s.cp == 2), 'cp'] = 'Atypical angina'
 df_s.loc[(df_s.cp == 3), 'cp'] = 'Non-anginal pain'
 df_s.loc[(df_s.cp == 4), 'cp'] = 'Asymptomatic'
+sns.set_style('darkgrid')
 sns.boxplot(data = df_s, x = "cp", y = "trestbps", 
             hue = "sex", palette = "pastel")
 plt.title("Blood pressure vs chest pain categories", 
