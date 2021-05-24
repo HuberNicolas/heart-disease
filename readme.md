@@ -233,11 +233,18 @@ IV. **CLASSIFICATION**
 
 V.  **ACCURACIES**
 
-| 1 | 2 |   |   |   |
-|---|---|---|---|---|
-|   | 3 | 4 |   |   |
-|   |   |   |   |   |
-|   |   |   |   |   |
+|                           |                                                 |  | Accuracies |           |           |             |
+|---------------------------|-------------------------------------------------|--|------------|-----------|-----------|-------------|
+| Name                      | Method                                          |  | Cleveland  | Hungarian | Vancouver | Switzerland |
+| Log regression Accuracy   | metrics.accuracy_score(y_test, X_pred)          |  | 0.84       | 0.59      | 0.74      | 0.65        |
+| Log regression AUC-Score  | metrics.roc_auc_score(y_test_bin, probs_X)      |  | 0.95       | 0.75      | 0.85      | -           |
+| Naive Bayes Accuracy      | metrics.accuracy_score(y_test, X_pred)          |  | 0.77       | 0.46      | 0.54      | -           |
+| Naive Bayes AUC-Score     | metrics.roc_auc_score(y_test_bin, probs_X)      |  | 0.93       | 0.55      | 0.88      | -           |
+| SVC linearAccuracy        | metrics.accuracy_score(y_test, svc_linear_pred) |  | 0.86       | 0.58      | 0.84      | -           |
+| SVC poly(deg 3) Accuracy  | metrics.accuracy_score(y_test, svc_poly_pred)   |  | 0.68       | 0.62      | 0.38      | -           |
+| SVC kernel (rbf) Accuracy | metrics.accuracy_score(y_test, svc_rbf_pred)    |  | 0.58       | 0.62      | 0.2       | -           |
+| KNN Accuracy              | accuracy_score(y_test, knn_pred)                |  | 0.73       | 0.57      | 0.46      | 0.42        |
+| Neural Accuracy           | accuracy_score(y_test_bin, p)                   |  | 0.48       | 0.42      | 0.08      | 0.23        |
 
 Above is a summary of the scripts (and their log-files) of the accuracy
 in the form of a table. X is dependent on the associated method (first
