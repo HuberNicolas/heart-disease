@@ -55,8 +55,8 @@ Description of the process-pipeline
 
 **General:**
 
-Note: For this data science project, **[only the following. data files
-were used]{.ul}**:
+Note: For this data science project, only the following. data files
+were used:
 
   Filename             Md5-Hash
   -------------------- ----------------------------------
@@ -65,7 +65,7 @@ were used]{.ul}**:
   long-beach-va.data   381cee4b51b786623402929e2cc1ccf9
   switzerland.data     b2a3e9cc9c82dc0f8fa19bb851db495d
 
-These .data files were **[not]** used:
+These .data files were **not** used:
 
   Filename                     Md5-Hash
   ---------------------------- ----------------------------------
@@ -231,8 +231,7 @@ IV. **CLASSIFICATION**
     Sequential(), model.fit()
 
 
-V.  ![](./mdMedia/media/image1.emf)
-    **ACCURACIES**
+V.  **ACCURACIES**
 
 Above is a summary of the scripts (and their log-files) of the accuracy
 in the form of a table. X is dependent on the associated method (first
@@ -241,7 +240,7 @@ LR_pred).
 
 VI. **AUTOENCODERS**
 
-**[Cleveland analysis]{.ul}**
+**Cleveland analysis**
 
 -   Feature selection (first five most important)
 
@@ -268,7 +267,7 @@ coronary artery (RCA) in contrast to LAD.
 
 ![](./mdMedia/media/image2.png)
 
-**[Hungary analysis]{.ul}**
+**Hungary analysis**
 
 -   Feature selection (first five most important)
 
@@ -294,7 +293,7 @@ if yes, 0 otherwise.
 
 (./mdMedia/media/image3.png)
 
-**[Switzerland analysis]{.ul}**
+**Switzerland analysis**
 
 -   Feature selection (first five most important)
 
@@ -319,7 +318,7 @@ Age -- "age of the patients".
 
 (./mdMedia/media/image4.png)
 
-[Long Beach analysis]{.ul}
+**Long Beach analysis**
 
 -   Feature selection (first five most important)
 
