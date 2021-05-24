@@ -328,7 +328,7 @@ Cday -- "day of cardiac catheterization". Not relevant.
 
 -   Autoencoders
 
-(./mdMediaFolder/media/image5.png)
+![](./mdMediaFolder/media/image5.png)
 
 **Conclusion:**
 
