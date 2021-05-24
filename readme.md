@@ -6,15 +6,15 @@ Python Version: 3.8.5 (64-bit)
 
 R Version: 4.0.4 (64-bit)
 
-  Name of the folder                  Description
-  ----------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------------
-  0 raw .data                         Contains the raw data (incl. .md5 hashes) from the [source](https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/).
-  1 raw .csv                          Contains the renamed .csv files and the formatter script (incl. .md5 hashes).
-  2 formatted .csv                    Contains the formatted .csv files without a header (incl. .md5 hashes).
-  data                                Contains the datasets (incl. header) the analysis was run (incl. .md5 hashes).
-  logs                                Contains the logfiles of the scripts.
-  plots                               Contains the plots that were generated during the analysis.
-  rand_forest_feature_selection(25)   Contains the datasets (incl. header) after the random forest selection. These sets contain 25 features, that can "explain" 80% of the data.
+  | Name of the folder                | Description                                                                                                                                  |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 0 raw .data                       | Contains the raw data (incl. .md5 hashes) from the source.                                                                                   |
+| 1 raw .csv                        | Contains the renamed .csv files and the formatter script (incl. .md5 hashes).                                                                |
+| 2 formatted .csv                  | Contains the formatted .csv files without a header (incl. .md5 hashes).                                                                      |
+| data                              | Contains the datasets (incl. header) the analysis was run (incl. .md5 hashes).                                                               |
+| logs                              | Contains the logfiles of the scripts.                                                                                                        |
+| plots                             | Contains the plots that were generated during the analysis.                                                                                  |
+| rand_forest_feature_selection(25) | Contains the datasets (incl. header) after the random forest selection. These sets contain 25 features, that can “explain” 80% of the data.  |
 
 About the datasets
 
