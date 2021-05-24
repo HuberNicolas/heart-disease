@@ -44,12 +44,12 @@ feature 58 "num", diagnosis of heart disease (angiographic disease
 status). This indicates, how severe the disease is (0: no disease, 4:
 most severe disease)
 
-  Database         Class = 0   Class = 1   Class = 2   Class = 3   Class = 4   Total
-  ---------------- ----------- ----------- ----------- ----------- ----------- -------
-  Cleveland        164         55          36          35          13          303
-  Hungarian        188         37          26          28          15          294
-  Switzerland      8           48          32          30          5           123
-  Long Beach VA:   51          56          41          42          10          200
+  | Database       | Class = 0 | Class = 1 | Class = 2 | Class = 3 | Class = 4 | Total |
+|----------------|-----------|-----------|-----------|-----------|-----------|-------|
+| Cleveland      | 164       | 55        | 36        | 35        | 13        | 303   |
+| Hungarian      | 188       | 37        | 26        | 28        | 15        | 294   |
+| Switzerland    | 8         | 48        | 32        | 30        | 5         | 123   |
+| Long Beach VA: | 51        | 56        | 41        | 42        | 10        | 200   |
 
 Description of the process-pipeline
 
@@ -58,23 +58,23 @@ Description of the process-pipeline
 Note: For this data science project, only the following. data files
 were used:
 
-  Filename             Md5-Hash
-  -------------------- ----------------------------------
-  cleveland.data       2388e97e27676171aa0a1c61bb4a3670
-  hungarian.data       ce4a62b8de90d93d616ede3253239851
-  long-beach-va.data   381cee4b51b786623402929e2cc1ccf9
-  switzerland.data     b2a3e9cc9c82dc0f8fa19bb851db495d
+| Filename           | Md5-Hash                         |
+|--------------------|----------------------------------|
+| cleveland.data     | 2388e97e27676171aa0a1c61bb4a3670 |
+| hungarian.data     | ce4a62b8de90d93d616ede3253239851 |
+| long-beach-va.data | 381cee4b51b786623402929e2cc1ccf9 |
+| switzerland.data   | b2a3e9cc9c82dc0f8fa19bb851db495d |
 
 These .data files were **not** used:
 
-  Filename                     Md5-Hash
-  ---------------------------- ----------------------------------
-  new.data                     046bd9f619c20148b261b3e392c02591
-  processed.cleveland.data     2d91a8ff69cfd9616aa47b59d6f843db
-  processed.hungarian.data     22e96bee155b5973568101c93b3705f6
-  processed.switzerland.data   9a87f7577310b3917730d06ba9349e20
-  processed.va.data            4249d03ca7711e84f4444768c9426170
-  reprocessed.hungarian        3698a53d41cccc2e4499e1273c055378
+| Filename                   | Md5-Hash                         |
+|----------------------------|----------------------------------|
+| new.data                   | 046bd9f619c20148b261b3e392c02591 |
+| processed.cleveland.data   | 2d91a8ff69cfd9616aa47b59d6f843db |
+| processed.hungarian.data   | 22e96bee155b5973568101c93b3705f6 |
+| processed.switzerland.data | 9a87f7577310b3917730d06ba9349e20 |
+| processed.va.data          | 4249d03ca7711e84f4444768c9426170 |
+| reprocessed.hungarian      | 3698a53d41cccc2e4499e1273c055378 |
 
 For the sake of completeness, nonetheless, we did include the whole
 folder.
@@ -93,12 +93,12 @@ Third step: adding a header for the 76 features (data).
 
 We finally get 4 files in our data folder:
 
-  Filename                      Md5-Hash
-  ----------------------------- ----------------------------------
-  cleveland_76_header.csv       a67792681f83998d97e332bfb41efee0
-  hungarian_76_header.csv       6c86829818559cfb434126c61d5cb25c
-  long-beach-va_76_header.csv   4dde4782acbbdac7b2198bb676fea13f
-  switzerland_76_header.csv     d4a1d37007107ee2fb73be8a4122bf32
+| Filename                    | Md5-Hash                         |
+|-----------------------------|----------------------------------|
+| cleveland_76_header.csv     | a67792681f83998d97e332bfb41efee0 |
+| hungarian_76_header.csv     | 6c86829818559cfb434126c61d5cb25c |
+| long-beach-va_76_header.csv | 4dde4782acbbdac7b2198bb676fea13f |
+| switzerland_76_header.csv   | d4a1d37007107ee2fb73be8a4122bf32 |
 
 Important note: At this moment, no entries were modified.
 
