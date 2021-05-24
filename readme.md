@@ -65,7 +65,7 @@ were used]{.ul}**:
   long-beach-va.data   381cee4b51b786623402929e2cc1ccf9
   switzerland.data     b2a3e9cc9c82dc0f8fa19bb851db495d
 
-These .data files were **[not]{.ul}** used:
+These .data files were **[not]** used:
 
   Filename                     Md5-Hash
   ---------------------------- ----------------------------------
@@ -154,9 +154,6 @@ they were generated, and which technique/method/model was used.
 
 I.  **PREPROCESSING & DATA VISUALIZATION**
 
-```{=html}
-<!-- -->
-```
 1.  Visualize Max heart rate vs age with the target variable "num" (1-4)
     : Scatter Plot
 
@@ -184,38 +181,24 @@ I.  **PREPROCESSING & DATA VISUALIZATION**
 9.  Visualize comparison between the distribution of the disease
     according to age and sex : Bar Plot (.groupby)
 
-```{=html}
-<!-- -->
-```
+
 II. **FEATURE SELECTION**
 
-```{=html}
-<!-- -->
-```
+
 10. Visualize feature importance : Bar Plot (RandomForestClassifier) =\>
     saved under / rand_forest_feature_selection(25)
 
-```{=html}
-<!-- -->
-```
 III. **REDUCTION & VISUALISATION**
 
-```{=html}
-<!-- -->
-```
 11. Visualize feature reduction for different perplexities : Scatter
     Plot (TSNE)
 
 12. Visualize feature reduction : Scatter Plot (UMAP)
 
-```{=html}
-<!-- -->
-```
+
 IV. **CLASSIFICATION**
 
-```{=html}
-<!-- -->
-```
+
 13. Visualize logistic regression : Heatmap (LogisticRegression)
 
 14. Visualize performance of logistic regression : ROC plot + AUC result
@@ -247,11 +230,9 @@ IV. **CLASSIFICATION**
 23. Visualize performance of simple neural Network : model =
     Sequential(), model.fit()
 
-```{=html}
-<!-- -->
-```
-V.  ![](./mdMedia/media/image1.emf){width="7.895833333333333in"
-    height="2.270748031496063in"}**ACCURACIES**
+
+V.  ![](./mdMedia/media/image1.emf)
+    **ACCURACIES**
 
 Above is a summary of the scripts (and their log-files) of the accuracy
 in the form of a table. X is dependent on the associated method (first
@@ -285,8 +266,7 @@ coronary artery (RCA) in contrast to LAD.
 
 -   Autoencoders
 
-![](./mdMedia/media/image2.png){width="4.410256999125109in"
-height="3.3159569116360457in"}
+![](./mdMedia/media/image2.png)
 
 **[Hungary analysis]{.ul}**
 
@@ -312,8 +292,7 @@ if yes, 0 otherwise.
 
 -   Autoencoders
 
-![](./mdMedia/media/image3.png){width="4.539525371828521in"
-height="3.3976377952755907in"}
+(./mdMedia/media/image3.png)
 
 **[Switzerland analysis]{.ul}**
 
@@ -338,8 +317,7 @@ Age -- "age of the patients".
 
 -   Autoencoders
 
-![](./mdMedia/media/image4.png){width="4.493972003499563in"
-height="3.3858267716535435in"}
+(./mdMedia/media/image4.png)
 
 [Long Beach analysis]{.ul}
 
@@ -361,8 +339,7 @@ Cday -- "day of cardiac catheterization". Not relevant.
 
 -   Autoencoders
 
-![](./mdMedia/media/image5.png){width="4.5317574365704285in"
-height="3.3858267716535435in"}
+(./mdMedia/media/image5.png)
 
 **Conclusion:**
 
@@ -440,9 +417,7 @@ Having said that, we also record some thoughts for further improvements:
 -   Working with a current dataset and then compare the results. What
     did change, what stayed the same.
 
-```{=html}
-<!-- -->
-```
+
 -   
 
 **Appendix:**
