@@ -265,7 +265,7 @@ coronary artery (RCA).
 
 Autoencoders
 
-(./mdMediaFolder/media/image2.png)
+![](./mdMediaFolder/media/image2.png)
 **Hungary :**
 
 Cp -- "chest pain" seems to be selected as the most important feature.
@@ -288,9 +288,9 @@ Exang -- "Exercise-induced angina". It is divided into two categories:
 
 -   Autoencoders
 
-(./mdMediaFolder/media/image3.png)
+![](./mdMediaFolder/media/image3.png)
 
-**[Switzerland :]{.ul}**
+**Switzerland :**
 
 Cxmain -- "circumflex". It is another vessel that is part of the left
 main coronary artery (LAD),
@@ -310,9 +310,9 @@ Age -- "age of the patients".
 
 -   Autoencoders
 
-(./mdMediaFolder/media/image4.png)
+![](./mdMediaFolder/media/image4.png)
 
-**[Long Beach :]{.ul}**
+**Long Beach :**
 
 Rcaprox -- "proximal right coronary artery" is part of the right
 coronary artery (RCA).
@@ -376,9 +376,7 @@ limitation:
 -   The dataset was a bit outdated. The conditions have changed
     since 1998.
 
-```{=html}
-<!-- -->
-```
+
 -   The Swiss dataset was highly unbalanced (very few 0's and 4's in the
     "num"). Consequently, ROC-scores for some classification methods
     could not be obtained. In addition, the Swiss dataset has no
@@ -388,9 +386,7 @@ limitation:
     difficulties were (amongst other things) responsible for the low
     model accuracy.
 
-```{=html}
-<!-- -->
-```
+
 -   Some features (incl. class distributions of heart disease) were not
     described. We do not know, how these features were collected or
     measured. Also, some features are missing in datasets, for instance,
@@ -412,9 +408,7 @@ Having said that, we also record some thoughts for further improvements:
     results between old datasets and new ones. What did change, what
     stayed the same?
 
-```{=html}
-<!-- -->
-```
+
 -   
 
 **Appendix:**
