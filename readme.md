@@ -1,6 +1,8 @@
-Repo: <https://github.com/HuberNicolas/heart-disease>
+Repository: <https://github.com/HuberNicolas/heart-disease>
 
-About the project
+Group: Kalvin Dobler, Nathalie Guttmann, Nicolas Huber
+
+Information on the project:
 
 Python Version: 3.8.5 (64-bit)
 
@@ -16,11 +18,11 @@ R Version: 4.0.4 (64-bit)
 | plots                             | Contains the plots that were generated during the analysis.                                                                                  |
 | rand_forest_feature_selection(25) | Contains the datasets (incl. header) after the random forest selection. These sets contain 25 features, that can “explain” 80% of the data.  |
 
-About the datasets
+Information on datasets:
 
 The following explanations are based on the heart-disease.NAMES file.
 
-**\# of Instances:**
+**Number of instances:**
 
 -   Cleveland: 303
 
@@ -30,7 +32,7 @@ The following explanations are based on the heart-disease.NAMES file.
 
 -   Long Beach VA: 200
 
-**Number of Attributes:** 76 (including the predicted attribute) See
+**Number of attributes:** 76 (including the predicted attribute) See
 appendix for the complete list. (Missing Attribute Values: Several.
 Distinguished with value -9.0.)
 
@@ -40,9 +42,9 @@ database is the only one that has been used by ML researchers to this
 date."
 
 **Class distribution:** (Classtype (domain \[0,4\]) is referring to
-feature 58 "num", diagnosis of heart disease (angiographic disease
-status). This indicates, how severe the disease is (0: no disease, 4:
-most severe disease)
+feature 58 "num". It is an integer valued from 0 (absence of disease) to
+4. In this project, the different levels for heart disease were taken in
+account during the analysis.
 
   | Database       | Class = 0 | Class = 1 | Class = 2 | Class = 3 | Class = 4 | Total |
 |----------------|-----------|-----------|-----------|-----------|-----------|-------|
@@ -51,12 +53,12 @@ most severe disease)
 | Switzerland    | 8         | 48        | 32        | 30        | 5         | 123   |
 | Long Beach VA: | 51        | 56        | 41        | 42        | 10        | 200   |
 
-Description of the process-pipeline
+Description of the process-pipeline:
 
 **General:**
 
-Note: For this data science project, only the following. data files
-were used:
+Note: For this data science project, **[only the following. data files
+were used]{.ul}**:
 
 | Filename           | Md5-Hash                         |
 |--------------------|----------------------------------|
@@ -65,7 +67,7 @@ were used:
 | long-beach-va.data | 381cee4b51b786623402929e2cc1ccf9 |
 | switzerland.data   | b2a3e9cc9c82dc0f8fa19bb851db495d |
 
-These .data files were **not** used:
+These .data files were *not* used:
 
 | Filename                   | Md5-Hash                         |
 |----------------------------|----------------------------------|
@@ -107,18 +109,18 @@ Important note: At this moment, no entries were modified.
 The processing of the data was done in the following order.
 Pre-processing and (general) visualization, feature selection,
 reduction, and finally classification. We focus and start in this
-project on working with the whole dataset and not the already
-pre-processed files, which only include a tiny subset of the features,
-to finally compare the locations with each other.
+project on working with the whole dataset and not the pre-processed
+files, which only include a tiny subset of the features, to finally
+compare the locations with each other.
 
 It is in general a good idea to start with some visualizations get a
-rough overview and kind of an intuition of the (abstract) data. In a
-second step doing a feature, the selection is crucial, because 76
+rough overview. In a second step, the selection is crucial, because 76
 features go beyond the constraints of reasonable analysis. Using the
-RandomForestClassifier found 25 features that have the most impact on
-the data. The two other approaches were t-SNE and UMAP and in addition
-to this using autoencoders with R. Several different classification
-algorithms, namely
+RandomForestClassifier, 25 features were found to have the most impact
+on the data. For the dimensionality reduction the following approaches
+were used: t-SNE and UMAP as well as the autoencoders with R.
+Furthermore, a list of classification algorithms used for this project
+are listed below:
 
 -   Logistic Regression
 
@@ -130,108 +132,96 @@ algorithms, namely
 
 -   Neural Networks
 
--   Autoencoders (in R)
+I.  **PRE-PROCESSING & DATA VISUALIZATION**
 
-were processed before finally a conclusion was drawn from the results
-and plots.
+> Below is a summary of all plots; how they were generated, and which
+> technique/method/model was used.
 
-Disclaimer:
+1.  Visualization of Max heart rate vs age with the target variable
+    "num" (1-4): Scatter Plot
 
--   The Swiss dataset was highly unbalanced (very few 0's and 4's in the
-    "num" section which is they-feature). That causes the ROC-score to
-    struggle.
+2.  Visualization of cholesterol level vs age with the target variable
+    "num" (1-4): Scatter Plot
 
--   In addition to this, the Swiss dataset has no information about the
-    chol level (default 0). That means it was not possible to plot the
-    second scatter plot.
+3.  Visualization of blood pressure vs chest pain: Box Plot
 
--   Overall, the Swiss data set was not very suitable for this kind of
-    analysis. The above-mentioned difficulties were (amongst other
-    things) for the low model accuracy.
+4.  Visualization of correlation between features and target variable
+    "num" (1-4): Bar Plot (corrwith)
 
-In the following, there is a summary of all the different plots, how
-they were generated, and which technique/method/model was used.
+5.  Visualization of correlation between features and target variable
+    "num" (1-4): Heatmap (.corr)
 
-I.  **PREPROCESSING & DATA VISUALIZATION**
+6.  Visualization of blood pressure vs age with the target variable:
+    LMplot (.lmplot : scatterplot with an optional overlaid regression
+    line)
 
-1.  Visualize Max heart rate vs age with the target variable "num" (1-4)
-    : Scatter Plot
-
-2.  Visualize cholesterol level vs age with the target variable "num"
-    (1-4) : Scatter Plot
-
-3.  Visualize blood pressure vs chest pain : Box Plot
-
-4.  Visualize correlation between features and target variable "num"
-    (1-4) : Bar Plot (.corrwith)
-
-5.  Visualize correlation between features and target variable "num"
-    (1-4) : Heatmap (.corr)
-
-6.  Visualize blood pressure vs age with the target variable : LMplot
+7.  Visualization of heart rate vs age with the target variable: LMplot
     (.lmplot : scatterplot with an optional overlaid regression line)
 
-7.  Visualize heart rate vs age with the target variable : LMplot
-    (.lmplot : scatterplot with an optional overlaid regression line)
+8.  Visualization of distribution of age according to the presence of
+    heart disease: KDEplot (.kdeplot : represents the data using a
+    continuous probability density curve)
 
-8.  Visualize distribution of age according to the presence of heart
-    disease : KDEplot (.kdeplot : represents the data using a continuous
-    probability density curve)
-
-9.  Visualize comparison between the distribution of the disease
-    according to age and sex : Bar Plot (.groupby)
+9.  Visualization of comparison between the distribution of the disease
+    according to age and sex: Bar Plot (.groupby)
 
 
 II. **FEATURE SELECTION**
 
 
-10. Visualize feature importance : Bar Plot (RandomForestClassifier) =\>
-    saved under / rand_forest_feature_selection(25)
+10. Visualization of feature importance: Bar Plot
+    (RandomForestClassifier) =\> saved under /
+    rand_forest_feature_selection (25)
 
-III. **REDUCTION & VISUALISATION**
 
-11. Visualize feature reduction for different perplexities : Scatter
-    Plot (TSNE)
+III. **DIMENSIONALITY REDUCTION & VISUALISATION**
 
-12. Visualize feature reduction : Scatter Plot (UMAP)
+
+11. Visualization of feature reduction for different perplexities:
+    Scatter Plot (TSNE)
+
+12. Visualization of feature reduction: Scatter Plot (UMAP)
 
 
 IV. **CLASSIFICATION**
 
 
-13. Visualize logistic regression : Heatmap (LogisticRegression)
+13. Visualization of logistic regression: Heatmap (LogisticRegression)
 
-14. Visualize performance of logistic regression : ROC plot + AUC result
-    ; Print accuracy : (metrices.accuracy_score)
+14. Visualization of performance of logistic regression: ROC plot + AUC
+    result; Print accuracy: (metrices.accuracy_score)
 
-15. Visualize naïve Bayes : Heatmap (GaussianNB)
+15. Visualization of naïve Bayes: Heatmap (GaussianNB)
 
-16. Visualize performance of naïve Bayes : ROC plot + AUC result ; Print
-    accuracy : (metrices.roc_auc_score)
+16. Visualization of performance of naïve Bayes: ROC plot + AUC result;
+    Print accuracy: (metrices.roc_auc_score)
 
-17. Visualize performance of SVM (linear kernel) : ROC plot + AUC result
-    ; Print accuracy : (metrices.accuracy_score)
+17. Visualization of performance of SVM (linear kernel): ROC plot + AUC
+    result; Print accuracy: (metrices.accuracy_score)
 
-18. Visualize performance of SVM (poly (d=3) kernel) : ROC plot + AUC
-    result ; Print accuracy : (metrices.accuracy_score)
+18. Visualization of performance of SVM (poly (d=3) kernel): ROC plot +
+    AUC result; Print accuracy: (metrices.accuracy_score)
 
-19. Visualize performance of SVM (rbf kernel) : ROC plot + AUC result ;
-    Print accuracy : (metrices.accuracy_score)
+19. Visualization of performance of SVM (rbf kernel): ROC plot + AUC
+    result; Print accuracy: (metrices.accuracy_score)
 
-20. Visualize SVM (linear, poly (d=3) and rbf kernel) : Heatmap
+20. Visualization of SVM (linear, poly (d=3) and rbf kernel): Heatmap
     (svm.SVC(kernel = TYPE))
 
-21. Visualize KNN : KNeighborsClassifier(n_neighbors = 5, algo =
-    "ball_tree") ; Print accuracy : (accuracy_score)
+21. Visualization of KNN: KNeighborsClassifier(n_neighbors = 5, algo =
+    "ball_tree") ; Print accuracy: (accuracy_score)
 
-22. Visualize performance of KNN : ROC + plot ; Print cross validation :
-    (cross_val_score)
+22. Visualization of performance of KNN: ROC + plot; Print cross
+    validation: (cross_val_score)
 
-23. Visualize performance of simple neural Network : model =
+23. Visualization of performance of simple neural Network: model =
     Sequential(), model.fit()
 
 
-V.  **ACCURACIES**
+V.  **ACCURACIES OF CLASSIFICATION METHODS**
+
+Summary of the scripts (and their log-files) of the accuracy in the form
+of a table.
 
 |                           |                                                 |  | Accuracies |           |           |             |
 |---------------------------|-------------------------------------------------|--|------------|-----------|-----------|-------------|
@@ -246,27 +236,24 @@ V.  **ACCURACIES**
 | KNN Accuracy              | accuracy_score(y_test, knn_pred)                |  | 0.73       | 0.57      | 0.46      | 0.42        |
 | Neural Accuracy           | accuracy_score(y_test_bin, p)                   |  | 0.48       | 0.42      | 0.08      | 0.23        |
 
-Above is a summary of the scripts (and their log-files) of the accuracy
-in the form of a table. X is dependent on the associated method (first
-column) for instance using logistic regression, X_pred is named
-LR_pred).
+VI. **FEATURES SELECTION**
 
-VI. **AUTOENCODERS**
+Below are listed the top five most important features for each location
+as well as their result for the Autoencoder.
 
-**Cleveland analysis**
-
--   Feature selection (first five most important)
+**Cleveland :**
 
 Laddist -- "distal left anterior descending artery" seems to be one of
 the most important features. Indeed, it is part of the left main
-coronary artery (LAD), considered the most important because it supplies
-more than half of the blood to the heart.
+coronary artery (LAD), supplying more than half of the blood to the
+heart.
 
-Thal -- "exercise thallium scintigaphy" is a diagnostic method of
-nuclear medicine that enables visualization of well-perfused and vital
-tissue of myocardium by means of 201thallium absorbed by its cells. This
-method is used to evaluate the character of soft tissue lesions. The
-feature is divided into three categories from normal to defect.
+Thal -- "exercise thallium scintigraphy" is a diagnostic method in
+nuclear medicine that enables the visualization of well-perfused and
+vital tissue of myocardium by means of 201thallium absorbed by its
+cells. This method is used to evaluate the character of soft tissue
+lesions. In this dataset the feature is divided into three categories
+from normal to defect.
 
 Om1 -- "first obtuse marginal branch" is also an important vessel that
 is part of the left main coronary artery (LAD).
@@ -274,15 +261,12 @@ is part of the left main coronary artery (LAD).
 Ca -- "number of major vessels".
 
 Rcaprox -- "proximal right coronary artery" is part of the right
-coronary artery (RCA) in contrast to LAD.
+coronary artery (RCA).
 
--   Autoencoders
+Autoencoders
 
-![](./mdMedia/media/image2.png)
-
-**Hungary analysis**
-
--   Feature selection (first five most important)
+(./mdMediaFolder/media/image2.png)
+**Hungary :**
 
 Cp -- "chest pain" seems to be selected as the most important feature.
 It is divided into four categories: type: 1 = typical angina; 2 =
@@ -299,22 +283,19 @@ myocardial ischemia.
 Lvx4 -- not used / not described / no information regarding this
 feature.
 
-Exang -- "Exercise-induced angina". It is divided into two categories: 1
-if yes, 0 otherwise.
+Exang -- "Exercise-induced angina". It is divided into two categories:
+1:yes, 0: otherwise.
 
 -   Autoencoders
 
-(./mdMedia/media/image3.png)
+(./mdMediaFolder/media/image3.png)
 
-**Switzerland analysis**
-
--   Feature selection (first five most important)
+**[Switzerland :]{.ul}**
 
 Cxmain -- "circumflex". It is another vessel that is part of the left
-main coronary artery (LAD), considered the most important because it
-supplies more than half of the blood to the heart.
+main coronary artery (LAD),
 
-ID -- not relevant.
+ID -- identification of patient, not relevant.
 
 Thalach -- "maximum heart rate achieved" refers to the maximum heart
 rate achieved during thalium stress test. At first sight, we might
@@ -329,21 +310,17 @@ Age -- "age of the patients".
 
 -   Autoencoders
 
-(./mdMedia/media/image4.png)
+(./mdMediaFolder/media/image4.png)
 
-**Long Beach analysis**
-
--   Feature selection (first five most important)
+**[Long Beach :]{.ul}**
 
 Rcaprox -- "proximal right coronary artery" is part of the right
-coronary artery (RCA) in contrast to LAD.
+coronary artery (RCA).
 
 Ladprox -- "proximal left anterior descending artery" which is part of
 LAD.
 
-Cxmain -- "circumflex". It is another vessel that is part of the left
-main coronary artery (LAD), considered the most important because it
-supplies more than half of the blood to the heart.
+Cxmain -- "circumflex". It is another vessel that is part of the LAD.
 
 ID -- not relevant.
 
@@ -351,7 +328,7 @@ Cday -- "day of cardiac catheterization". Not relevant.
 
 -   Autoencoders
 
-(./mdMedia/media/image5.png)
+(./mdMediaFolder/media/image5.png)
 
 **Conclusion:**
 
@@ -359,38 +336,36 @@ The following 3 questions were formulated in our proposal:
 
 "Are some parameters more likely to be associated with heart disease?"
 
-"Can we predict heart disease while using statistical methods?"
+"Can we find any differences between the different locations?"
 
-"Can we find any differences between the different regions in terms of
-predicted risk factors?"
+"Can different levels of a heart disease be differentiated from each
+other?"
 
-We will discuss our findings during the presentation and summarize the
-most important here:
-
-With the random forest method, 25 features were selected that explain
-about 80% of the data. Since the list of features is relatively long,
-this trade-off has been made. It is notable that also obviously some
-features were selected, that have no impact on the risk of CVD (for
-instance ID in Switzerland and Vancouver). For the algorithm, the ID
-parameter seems to have an important impact on the outcome, whereas in
-the real world this is not the case and shows, how the "algorithm"
-thinks". Other parameters like the chest pain indicator for the
-Hungarian set were also selected (which makes also in medical
-perspective more sense). Naming a set of parameters for all locations
-seems not realistic, one reason that we came up with is, that the sheer
-list of features is just too much: Even the top (five) of the 25
-selected features does only explain the outcome in a degree of the low
-percentage.
+With the random forest method, 25 features were selected that could
+explain about 80% of the data. A list with the top five most important
+features for each location taking in account the different class
+distributions for a heart disease was listed from page 5-8. Of note is
+that no irrelevant features for the risk of CVDs were excluded from the
+analysis (e.g. ID in Switzerland and Vancouver). Interestingly, the ID
+parameter was classified as important for predicting the outcome by the
+algorithm. This shows the discrepancy between an algorithm and medical
+application for defining important risk factors for a CVDs.
 
 Regarding the prediction of heart disease, this project is sobering. For
-some datasets, the prediction was not good and there is a variation in
-the accuracy regarding the different methods of prediction. This is
-shown in the performance measurement table
+some datasets, the prediction was not good and a variation in the
+accuracy regarding the different classification methods for predicting
+risk factors was observed (chapter V).
 
-There are only minor differences between the locations, this can be seen
-in various plots, for instance, distribution of age and the type of
-disease. One reason could be because the 4 locations have a similar
-socio-demographic structure.
+Differences of selection of risk factors for predicting heart disease
+were shown between locations (pages 5-8). Furthermore, additional minor
+differences between locations were observed when performing an
+Exploratory Data Analysis, for instance, for the distribution of age and
+the type of disease. One reason could be that those locations showed a
+similar socio-demographic structure in 1998.
+
+Lastly, differences between class conditions for heart disease were
+difficult to discern as results showed no clear clustering for each
+class conditions when using different classification methods.
 
 **Limitation and Outlook:**
 
@@ -398,38 +373,48 @@ In retrospect, were now able to reflect on the project and to discuss
 improvements that could be made on further projects. We start with the
 limitation:
 
--   The dataset was a bit outdated. The conditions have been changed
-    and.
+-   The dataset was a bit outdated. The conditions have changed
+    since 1998.
 
--   The dataset of Switzerland is very unbalanced, which makes it hard
-    to draw a reliable conclusion. This directly affects several models,
-    such that it was not possible to generate them, even with shuffling
-    the samples.
+```{=html}
+<!-- -->
+```
+-   The Swiss dataset was highly unbalanced (very few 0's and 4's in the
+    "num"). Consequently, ROC-scores for some classification methods
+    could not be obtained. In addition, the Swiss dataset has no
+    information on the cholesterol level (default 0), which means no
+    second scatter plot could be to be plotted. Overall, the Swiss data
+    set was not very suitable for this analysis. The above-mentioned
+    difficulties were (amongst other things) responsible for the low
+    model accuracy.
 
--   The features were not described. We do not know, how these features
-    were measured and if there are differences between the locations.
-    Also, in some datasets are important features not existing, for
-    instance, cholesterol in the Swiss dataset.
-
--   Furthermore, it seems like some features are senseless, for
-    instance, the day of cardiac catherization.
-
--   It is not clear if the num=0 class is a control group or not.
+```{=html}
+<!-- -->
+```
+-   Some features (incl. class distributions of heart disease) were not
+    described. We do not know, how these features were collected or
+    measured. Also, some features are missing in datasets, for instance,
+    cholesterol in the Swiss dataset.
 
 Having said that, we also record some thoughts for further improvements:
 
--   We can tune the model parameters for each dataset to achieve higher
-    accuracy. That means the pipeline may look different and it may not
-    be possible anymore to compare different regions, but (hopefully)
-    the accuracy will increase.
+-   We can fine-tune the model parameters for each dataset to achieve
+    higher accuracy. That means the pipeline may look different and it
+    may not be possible anymore to compare different regions, but the
+    accuracy might increase.
 
 -   Expanding the choice of the features to maybe 50 would be
     interesting. Also, maybe a reduction could gain more insights.
 
--   Working with a current dataset and then compare the results. What
-    did change, what stayed the same.
+-   Excluding features thought to be irrelevant.
 
+-   Working with a current dataset on heart disease and then compare the
+    results between old datasets and new ones. What did change, what
+    stayed the same?
 
+```{=html}
+<!-- -->
+```
 -   
 
 **Appendix:**
